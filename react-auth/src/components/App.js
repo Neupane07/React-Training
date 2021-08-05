@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import firebase from 'firebase'
-import { config } from '../firebase';
 import 'firebase/auth'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignUpForm from './SignUpForm';
