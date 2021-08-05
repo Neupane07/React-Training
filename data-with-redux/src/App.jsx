@@ -1,20 +1,17 @@
 import React,{useState,useEffect} from 'react'
-import axios from 'axios'
-import Counter from './components/Counter';
+import { useSelector,useDispatch } from 'react-redux'
+import { listUsers } from './redux/actions/userActions'
 
 const App = () => {
+    const dispatch = useDispatch()
 
-    const [users, setUsers] = useState([])
-    const [show,setShow] = useState(false);
+    const usersList = useSelector(state => state.usersList)
+    
+    const { users } = usersList
 
-    useEffect(()=> {
-        const fetchData = async () => {
-            const {data} = await axios.get('https://reqres.in/api/users?page=1');
-            console.log(data.data)
-            setUsers(data.data);
-        }
-            fetchData();
-    },[])
+    // useEffect(()=> {
+    //     dispatch(listUsers())
+    // },[dispatch])
 
     const renderedUsers = users.map(user => {
         return (
@@ -27,18 +24,15 @@ const App = () => {
             </div>
         )
     })
-
     return (
         <>
             <div>
-                <button className="ui button" onClick={() => setShow(!show)}>Show users</button>
+                <button className="ui button" onClick={() => dispatch(listUsers())}>Show users</button>
             </div>
 
             <div className="ui celled list">
-                { show ? renderedUsers : ''}
+                { renderedUsers }
             </div>
-
-            <Counter/>
         </>
     )
 }
