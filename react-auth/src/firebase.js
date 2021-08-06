@@ -1,7 +1,4 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-
-
+import firebase from 'firebase'
 export const config = {
     apiKey: "AIzaSyA4WfLkEP_c3K1wsjMELqX2xftEJkOmU_k",
     authDomain: "react-auth-e0803.firebaseapp.com",
@@ -11,7 +8,6 @@ export const config = {
     appId: "1:444123838854:web:b0d0357737194e13d91407"
 };
 // Initialize Firebase
-const app = firebase.initializeApp(config);
+firebase.initializeApp(config);
 
-export const auth = app.auth();
 export default firebase
