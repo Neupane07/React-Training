@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { storage } from './firebase'
 import ReactPlayer from 'react-player';
 import VideoList from './VideoList';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 const App = () => {
     const [video, setVideo] = useState('')
@@ -40,7 +40,12 @@ const App = () => {
                 <button className="ui button">Upload</button>{uploading ? `Uploading...` : ''}
                 {videoFilePath ? <ReactPlayer url={videoFilePath} width="100%" height="100%" controls={true} /> : ''}
             </form>
-            <VideoList />
+            <Router>
+                <Switch>
+                    <Route component={() => (<VideoList />)} path="/videos" />
+                    {/* <Route component={() => (<Home signedIn={signedIn} setSignedIn={setSignedIn} currUserId={currUserId} />)} path="/" exact /> */}
+                </Switch>
+            </Router>
         </div>
     )
 }
