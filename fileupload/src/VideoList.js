@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player';
 import { storage } from './firebase';
+import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom'
 
 const VideoList = () => {
+    const history = useHistory();
     const [videosList, setVideosList] = useState([])
     useEffect(() => {
         const fetchVideos = async () => {
@@ -23,13 +25,16 @@ const VideoList = () => {
     const renderVideos = videosList.map((video) => {
         return (
             <>
-                <ReactPlayer url={video} width="50%" height="50%" controls={true} />
+                <Router>
+                    <ReactPlayer url={video} width="50%" height="50%" controls={true} />
+                </Router>
             </>
         )
     })
 
     return (
         <div>
+            <Link to="/" onClick={() => history.push("/")}>Home</Link>
             {renderVideos}<br />
         </div>
     )
