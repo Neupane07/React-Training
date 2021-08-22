@@ -1,0 +1,49 @@
+.profile-img {
+  position: absolute;
+  bottom: -80px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 150px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.modal-container {
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  min-height: 400px;
+  max-height: 400px;
+  overflow: hidden;
+}
+
+.carousel-btn {
+  width: 20px !important;
+}
+
+.status-caption {
+  border: none;
+  color: grey;
+  width: 100%;
+  font-size: 2rem;
+  outline: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.rounded-circle {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+}
+.rounded-circle-sm {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
