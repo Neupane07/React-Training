@@ -3,36 +3,10 @@ import firebase from '../firebase'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const Posts = ({ username }) => {
-    // const [posts, setPosts] = useState([])
-    // useEffect(() => {
-    //     const db = firebase.firestore()
-    //     db.collection('posts').onSnapshot((snapshot) => {
-    //         snapshot.docs.forEach(post => {
-    //             if (!posts.includes(post.data())) {
-    //                 setPosts(prevPosts => [...prevPosts, post.data()])
-    //             }
-    //         })
-    //     })
-    // }, [])
 
     const postsRef = firebase.firestore().collection('posts')
     const [posts] = useCollectionData(postsRef, { idField: 'id' })
 
-    // const renderedPosts = posts.map(post => {
-    //     return (
-    //         <div className="card" key={post.caption} style={{ width: '100%' }}>
-    //             <div className="card-body position-relative">
-    //                 <h5>{username}</h5>
-    //                 <img
-    //                     className="img-fluid card-img-bottom"
-    //                     src={post.imgUrl}
-    //                     alt="post"
-    //                 />
-    //                 <p className="text-center" style={{ backgroundColor: 'white', margin: '10px 10px', position: 'absolute', bottom: '20px' }}>{post.caption}</p>
-    //             </div>
-    //         </div>
-    //     )
-    // })
     return (
         <div className="container">
             {posts && posts.map(post => {

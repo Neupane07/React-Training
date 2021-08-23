@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { Button, Modal } from 'react-bootstrap'
-import firebase, { storage } from '../firebase'
+import { storage } from '../firebase'
 
-const CreatePostModal = ({ handleClose, show, input, setInput }) => {
+const CreatePostModal = ({ handleClose, show, input, setInput, setPosts, posts }) => {
 
     const [backgroundImage, setBackgroundImage] = useState('');
     const [file, setFile] = useState({})
@@ -11,16 +12,19 @@ const CreatePostModal = ({ handleClose, show, input, setInput }) => {
         if (!input && !backgroundImage) return;
         handleClose();
         const storageRef = storage.ref()
-        console.log('===>check here ', file.name)
         await storageRef.child('images/' + file.name).put(file);
         const downloadUrl = await storageRef.child('images/' + file.name).getDownloadURL();
 
-        const db = firebase.firestore()
-        await db.collection('posts').add({
-            name: file.name ? file.name : 'default',
-            imgUrl: file.name ? downloadUrl : backgroundImage,
-            caption: input
+        await axios.post('http://139.59.47.49:4004/api/post', {
+            post: input,
+            background: file.name ? downloadUrl : backgroundImage
         })
+        let temp = posts;
+        temp.push({
+            post: input,
+            background: file.name ? downloadUrl : backgroundImage
+        })
+        setPosts(temp)
         setFile({})
         setBackgroundImage('')
         setInput(`What's on your mind?`)
@@ -42,10 +46,9 @@ const CreatePostModal = ({ handleClose, show, input, setInput }) => {
                     <span onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')}>❤️</span>
                     <span className="mx-2" onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')}>🎵</span>
                     <span onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1496483648148-47c686dc86a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=752&q=80')}>🌼</span>
-                    <span className="mx-2" onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=668&q=80')}>🏋️</span>
+                    <span onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1565945887714-d5139f4eb0ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')}>🏋️</span>
                     <span onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1565945887714-d5139f4eb0ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')}>😊</span>
                     <span className="mx-2" onClick={() => setBackgroundImage('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')}>⌨️</span>
-
                 </div>
                 <input type="file" id="upload"
                     onChange={e => { setBackgroundImage(URL.createObjectURL(e.target.files[0])); setFile(e.target.files[0]) }} />
