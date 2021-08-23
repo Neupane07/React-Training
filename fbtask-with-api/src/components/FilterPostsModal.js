@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap';
-import FilterDropdownDate from './FilterDropdownDate';
 
 const FilterPostsModal = ({ filterShow, setFilterShow, filterDate, setFilterDate }) => {
     const [date, setDate] = useState('');

@@ -21,7 +21,7 @@ const Posts = ({ username, posts, setPosts, orderBy, setOrderBy, filterDate }) =
         return () => {
 
         }
-    }, [orderBy, filterDate])
+    }, [orderBy, filterDate, setPosts])
 
     const handleDelete = (id) => {
         axios.delete(`http://139.59.47.49:4004/api/post/delete/${id}`)
