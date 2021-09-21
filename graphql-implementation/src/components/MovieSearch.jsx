@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
-  useQuery,
   gql
 } from "@apollo/client";
 import { Container,Image, Input } from 'semantic-ui-react';
@@ -48,9 +46,7 @@ const MovieSearch = () => {
     `
   })
   .then(result => setImages(result.data.movies.search.edges));
-
   }
-
 
   return (
     <div>
