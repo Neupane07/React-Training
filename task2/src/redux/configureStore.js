@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import userReducer from './ducks/user'
+import searchReducer from './ducks/search'
 import createSagaMiddleware from 'redux-saga'
 import { watcherSaga } from "./sagas/rootSaga";
 
 
 const reducer = combineReducers({
-  user: userReducer
+  searchResults: searchReducer
 })
 
 const sagaMiddleware = createSagaMiddleware()

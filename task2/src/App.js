@@ -2,24 +2,20 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Container, Image, Input } from 'semantic-ui-react';
 import './App.css';
-import { getUser } from './redux/ducks/user';
+import { getSearchResults } from './redux/ducks/search';
 
 function App() {
   const dispatch = useDispatch()
 
+  const searchResults = useSelector(state => state.searchResults)
+  console.log('search results====>',searchResults)
 
-  // useEffect(() => {
-  //   console.log('dispatching ===>');
-  //   dispatch(getUser('new term'))
-  // },[dispatch])
-
-  const users = useSelector(state => state.user)
-  console.log("something",users?.user?.movies?.search?.edges)
+  const movies =  searchResults?.searchResults?.movies?.search?.edges
 
   const handleSubmit = e => {
     e.preventDefault();
     const term = e.target[0].value
-    dispatch(getUser(term))
+    dispatch(getSearchResults(term))
   }
 
   return (
@@ -32,7 +28,7 @@ function App() {
         </form>
       </Container>
 
-      {users?.user?.movies?.search?.edges && users.user.movies.search.edges.map(image => {
+      {movies && movies.map(image => {
         return (
           <Container key={image.node.title}>
             <h3 textAlig="center">{image.node.title}</h3>

@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects'
-import { GET_USER } from '../ducks/user';
-import { handleGetUser } from './handlers/user';
+import { GET_SEARCH_RESULTS } from '../ducks/search';
+import { handleGetSearchResults } from './handlers/search';
 
 export function* watcherSaga() {
-  yield takeLatest(GET_USER, handleGetUser)
+  yield takeLatest(GET_SEARCH_RESULTS, handleGetSearchResults)
 }
