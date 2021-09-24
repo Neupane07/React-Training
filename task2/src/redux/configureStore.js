@@ -1,7 +1,8 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import searchReducer from './ducks/search'
+import searchReducer from './reducers/search'
 import createSagaMiddleware from 'redux-saga'
-import { watcherSaga } from "./sagas/rootSaga";
+import { watcherSaga } from "./rootSaga";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 
 const reducer = combineReducers({
@@ -12,7 +13,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 const middleware = [sagaMiddleware]
 
-const store = createStore(reducer,{}, applyMiddleware(...middleware))
+const store = createStore(reducer,{},composeWithDevTools( applyMiddleware(...middleware)))
 
 sagaMiddleware.run(watcherSaga)
 

@@ -1,3 +1,5 @@
+import { call,put } from "@redux-saga/core/effects";
+import { setSearchResults } from "../actions/search";
 import {
   ApolloClient,
   InMemoryCache,
@@ -10,7 +12,6 @@ const client = new ApolloClient({
 });
 
 export function requestGetSearchResults(action){
-  console.log('term',action)
   return client
   .query({
     query: gql`
@@ -36,4 +37,14 @@ export function requestGetSearchResults(action){
     }
     `
   })
+}
+
+export function* handleGetSearchResults(action){
+  try{
+    const response = yield call(requestGetSearchResults,action)
+    const {data} = response
+    yield put(setSearchResults(data))
+  }catch(e){
+    console.log(e);
+  }
 }

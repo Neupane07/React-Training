@@ -2,14 +2,12 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Container, Image, Input } from 'semantic-ui-react';
 import './App.css';
-import { getSearchResults } from './redux/ducks/search';
+import { getSearchResults } from './redux/actions/search';
 
 function App() {
   const dispatch = useDispatch()
 
   const searchResults = useSelector(state => state.searchResults)
-  console.log('search results====>',searchResults)
-
   const movies =  searchResults?.searchResults?.movies?.search?.edges
 
   const handleSubmit = e => {
@@ -31,7 +29,7 @@ function App() {
       {movies && movies.map(image => {
         return (
           <Container key={image.node.title}>
-            <h3 textAlig="center">{image.node.title}</h3>
+            <h3 style={{textAlign:"center"}}>{image.node.title}</h3>
             <Image fluid src={image.node?.images?.backdrops[0]?.image}/> 
           </Container>
         )
